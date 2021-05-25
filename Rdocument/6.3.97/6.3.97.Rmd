@@ -1,0 +1,90 @@
+---
+title: "6.3.97"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 6.3.97
+
+According to a recent study, the carapace length for adult males of a certain species of tarantula are normally distributed with a mean of $\mu$ = 17.14
+mm and a standard deviation of $\sigma$ = 1.88
+mm. Complete parts​ (a) through​ (d) below.
+<br/>
+
+**(a)Find the percentage of the tarantulas that have a carapace length between 15 mm and 16 mm.**
+
+First, we need to find z-score for 15mm and 16mm by using the formula $z=\frac{x-\mu}{\sigma}$
+```{r}
+(15-17.14)/1.88
+(16-17.14)/1.88 
+```
+<hr />
+We get each probability to the left by using pnorm() command or using the table
+```{r}
+pnorm((16-17.14)/1.88 )
+pnorm((15-17.14)/1.88 )
+```
+<hr />
+In order to get the data between the range 15 and 16 we subtract these probabilities above
+```{r}
+pnorm((16-17.14)/1.88)-pnorm((15-17.14)/1.88)
+```
+Round the answer two four decimal places
+```{r}
+round(pnorm((16-17.14)/1.88)-pnorm((15-17.14)/1.88), 4)
+```
+<hr />
+<br/>
+**(b) Find the percentage of the tarantulas that have a carapace length exceeding 18 mm.**
+
+First, we need to find z-score for 18mm
+```{r}
+(18-17.14)/1.88
+```
+<hr />
+We get each probability to the left by using pnorm() command or using the table
+```{r}
+pnorm((18-17.14)/1.88 )
+```
+<hr />
+In order to get the data exceeding 18 mm
+```{r}
+1-pnorm((18-17.14)/1.88)
+```
+Round the answer two four decimal places
+```{r}
+round(1-pnorm((18-17.14)/1.88), 4)
+```
+<hr />
+**(c) Determine and interpret the quartiles for the carapace length of these tarantulas.**
+
+The area to the left of the first quartile is .25 
+
+Using qnorm() to get the z-value
+```{r}
+qnorm(.25)
+```
+
+Using the formula $x = \mu + \sigma . z$
+```{r}
+17.14 + 1.88 * qnorm(.25)
+round(17.14 + 1.88 * qnorm(.25), 2)
+```
+
+Since the area to the left of second and third quartile are .5 and .75 Using the same approach we have
+```{r}
+round(17.14 + 1.88 * qnorm(.5), 2)
+round(17.14 + 1.88 * qnorm(.75), 2)
+```
+<hr />
+**(d) Obtain the 95th percentile for the carapace length of these tarantulas**
+
+The area to the left of 95th percentile is .95
+```{r}
+round(17.14 + 1.88 * qnorm(.95), 2)
+```
+<hr />
+**Hope that helps!**

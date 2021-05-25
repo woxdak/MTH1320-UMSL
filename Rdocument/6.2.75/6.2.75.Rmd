@@ -1,0 +1,26 @@
+---
+title: "6.2.75"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 6.2.75
+Use a standard normal distribution table to obtain the​ z-score that has an area of 0.99 to its right.
+
+<br/>
+
+Put the area to the left into qnorm(), it returns z-score
+
+Since we have the area to the right
+```{r}
+qnorm(1-.99)
+```
+Round to two decimal places using round() command
+```{r}
+round(qnorm(1-.99),2)
+```
+<hr/>
+**Hope that helps!**

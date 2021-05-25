@@ -1,0 +1,39 @@
+---
+title: "6.2.61"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 6.2.61
+Determine the area under the standard normal curve that lies to the right of left parenthesis a right (a) z = -0.74 (b) z= -0.24 (c) z= -0.39 and (d) z= -0.12
+
+<br/>
+
+**(a) The area to the right of z= -0.74 is**
+Using pnorm() return the area to the left, in order to get the area to the right use 1 - pnorm()
+```{r}
+1-pnorm(-0.74)
+```
+Round to four decimal places as needed.
+Use round() command
+```{r}
+round(1-pnorm(-0.74), 4)
+```
+<hr />
+**(b) The area to the right of z= -0.24 is**
+
+**(c) The area to the right of z= -0.39 is**
+
+**(d) The area to the right of z= -0.12 is**
+
+Using the same approachh to get the answer
+```{r}
+round(1-pnorm(-0.24), 4)
+round(1-pnorm(-0.39), 4)
+round(1-pnorm(-0.12), 4)
+```
+<hr/>
+**Hope that helps!**

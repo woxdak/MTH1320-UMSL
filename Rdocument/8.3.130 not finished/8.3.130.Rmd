@@ -1,0 +1,88 @@
+---
+title: "8.3.130"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 8.3.130
+
+The following data represent the concentration of organic carbon​ (mg/L) collected from organic soil. Construct a 99% confidence interval for the mean concentration of dissolved organic carbon collected from organic soil.​ (Note: $\bar x$ = 16.56 mg/L and s = 8.3 mg/L)
+<br/>
+
+**Construct a 99​% confidence interval for the mean concentration of dissolved organic carbon collected from organic soil.**
+
+Since the question gives t-distribution table we will use t-test.
+
+First, we need to get the data from Excel. (The approach below gets the data mannually)
+```{r}
+data <- c(14.00,  8.81, 30.91, 19.80, 29.80,  7.40, 14.86, 14.86, 27.10, 20.46, 14.00,  8.09, 16.51, 14.90, 15.35,  5.30,  7.40, 33.67,  9.72, 18.30)
+```
+<hr />
+To get 99% confidence interval, we run
+```{r}
+t.test(data, conf.level = .99)
+```
+<hr />
+To get the data in 2 decimal places, we run 
+```{r}
+print(t.test(data, conf.level = .99), 4)
+```
+As you can see 99% confidence interval is from 11.25, 21.87
+```{r}
+round(pnorm((16-17.14)/1.88)-pnorm((15-17.14)/1.88), 4)
+```
+<hr />
+<br/>
+**(b) Find the percentage of the tarantulas that have a carapace length exceeding 18 mm.**
+
+First, we need to find z-score for 18mm
+```{r}
+(18-17.14)/1.88
+```
+<hr />
+We get each probability to the left by using pnorm() command or using the table
+```{r}
+pnorm((18-17.14)/1.88 )
+```
+<hr />
+In order to get the data exceeding 18 mm
+```{r}
+1-pnorm((18-17.14)/1.88)
+```
+Round the answer two four decimal places
+```{r}
+round(1-pnorm((18-17.14)/1.88), 4)
+```
+<hr />
+**(c) Determine and interpret the quartiles for the carapace length of these tarantulas.**
+
+The area to the left of the first quartile is .25 
+
+Using qnorm() to get the z-value
+```{r}
+qnorm(.25)
+```
+
+Using the formular x = mean + sigma * z-score
+```{r}
+17.14 + 1.88 * qnorm(.25)
+round(17.14 + 1.88 * qnorm(.25), 2)
+```
+
+Since the area to the left of second and third quartile are .5 and .75 Using the same approach we have
+```{r}
+round(17.14 + 1.88 * qnorm(.5), 2)
+round(17.14 + 1.88 * qnorm(.75), 2)
+```
+<hr />
+**(d) Obtain the 95th percentile for the carapace length of these tarantulas**
+
+The area to the left of 95th percentile is .95
+```{r}
+round(17.14 + 1.88 * qnorm(.95), 2)
+```
+<hr />
+**Hope that helps!**

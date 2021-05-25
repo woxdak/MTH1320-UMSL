@@ -1,0 +1,72 @@
+---
+title: "8.2.63"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 8.2.63
+
+A sample​ mean, sample​ size, population standard​ deviation, and confidence level are provided. Use this information to complete parts​ (a) through​ (c) below.
+
+$\bar{x}=24, n=37, \sigma=3, confidence level = 95%$
+<br/>
+
+**(a). Use the​ one-mean z-interval procedure to find a confidence interval for the mean of the population from which the sample was drawn.**
+
+
+First, we need to get the data from the question
+```{r}
+x = 24
+n = 37
+sigma = 3
+alpha = .05
+```
+<hr />
+**We do not use the empirical rule like in question 8.1.11**
+<hr/>
+To find confidence interval, we use formulas $\bar{x} \pm z_{\frac{\alpha}{2}}.\frac{\sigma}{\sqrt{n}}$
+
+First we find $z_{\frac{\alpha}{2}}$ by using qnorm()
+```{r}
+zalpha2 = abs(qnorm(alpha/2))
+zalpha2
+```
+To find 95% confidence interval, we run
+```{r}
+x - zalpha2 * sigma/sqrt(n)
+x + zalpha2 * sigma/sqrt(n)
+```
+<hr/>
+Round to one decimal places as needed
+```{r}
+round(x - zalpha2 * sigma/sqrt(n), 1)
+round(x + zalpha2 * sigma/sqrt(n), 1)
+```
+**(b).Obtain the margin of error by taking half the length of the confidence interval.What is the length of the confidence​ interval?**
+
+Length of confidence interval
+```{r}
+round(x + zalpha2 * sigma/sqrt(n), 1)-round(x - zalpha2 * sigma/sqrt(n), 1)
+```
+Margin of error = 1/2 distance of two endpoints of confidence interval
+```{r}
+(round(x + zalpha2 * sigma/sqrt(n), 1)-round(x - zalpha2 * sigma/sqrt(n), 1)) /2
+```
+**(c). Obtain the margin of error by using the formula $E=z_{\frac{\alpha}{2}}.\frac{\sigma}{\sqrt{n}}$**
+
+**Identify the critical value.**
+```{r}
+zalpha2
+round(zalpha2,2)
+```
+We can find margin of error
+```{r}
+E = zalpha2 * sigma/sqrt(n)
+E
+round(E, 1)
+```
+<hr />
+**Hope that helps!**

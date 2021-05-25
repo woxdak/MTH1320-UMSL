@@ -1,0 +1,32 @@
+---
+title: "8.1.7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 8.1.7
+
+A simple random sample is taken from a population and yields the following data for a variable of the population.
+<br/>
+
+**Find a point estimate for the population mean​ (that is, the mean of the​ variable).**
+
+
+First, we need to get the data from Excel. (The approach below gets the data mannually)
+```{r}
+data <- c(11, 23, 38, 13, 35, 16, 36, 19, 16, 27)
+```
+<hr />
+To find point estimated, we run
+```{r}
+mean(data)
+```
+Round to one decimal place as needed
+```{r}
+round(mean(data), 1)
+```
+<hr />
+**Hope that helps!**

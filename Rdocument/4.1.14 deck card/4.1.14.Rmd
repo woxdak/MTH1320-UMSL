@@ -1,0 +1,28 @@
+---
+title: "4.1.14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 4.1.14
+
+An ordinary deck of playing cards has 52 cards. There are four suitslong dash
+​spades, ​hearts, diamonds, and clubslong dash with 13 cards in each suit. Spades and clubs are​ black; hearts and diamonds are red. If one of these cards is selected at​ random, what is the probability that it is
+<br/>
+<hr/>
+**(a). The probability of selecting a jack is **
+
+From the image, there are 4 jack cards. So the probability is $\frac{4}{52}=\frac{1}{13}$
+
+**(b). The probability of selecting a red card is **
+
+From the image, there are 26 jack cards. So the probability is $\frac{26}{52}=\frac{1}{2}$
+
+**(c). The probability of selecting a card that is not a heart is **
+
+There are 13 heart cards. So the probability is $\frac{52-13}{52}=\frac{3}{4}$
+<hr/>
+**Hope that helps!**

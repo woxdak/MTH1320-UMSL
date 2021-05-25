@@ -1,0 +1,53 @@
+---
+title: "7.3.73"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 7.3.73
+
+An ethanol railroad tariff is a fee charged for shipments of ethanol on public railroads. An agricultural association publishes tariff rates for​ railroad-car shipments of ethanol. Assuming that the standard deviation of such tariff rates is ​$
+1300​,determine the probability that the mean tariff rate of 350 randomly selected​ railroad-car shipments of ethanol will be within ​$110 of the mean tariff rate of all​ railroad-car shipments of ethanol. Interpret your answer in terms of sampling error.
+<br/>
+<hr/>
+
+**The probability is (Round to three decimal places as needed)**
+
+The sample size n = 350 since there are 350 tariff randomly selected.
+
+Since the sample size is more than 30, the variable is normally distributed followed by the central limit theorem.
+
+Population standard deviation $\sigma=1300$
+
+```{r}
+n = 350  
+sigma = 1300
+```
+First we need to find sample standard deviation by using the formula $\sigma_{\bar{x}}=\frac{\sigma}{\sqrt{n}}$
+```{r}
+s = sigma/sqrt(n)
+s
+```
+Next, we need to find the test statistic by using the formula $z=\frac{x-\mu}{\sigma}$
+
+Since our estimated points are within 110 of the mean, so $x = \mu \pm 110 $
+. It follows that $z=\frac{\pm110}{\sigma_{\bar{x}}}$
+```{r}
+110 / s
+-110/ s
+```
+We can get the area between two estimated points by using pnorm()
+```{r}
+pnorm(110 / s) - pnorm(-110 / s) 
+```
+Round to three decimal places
+```{r}
+round(pnorm(110 / s) - pnorm(-110 / s) , 3)
+```
+<hr />
+
+<hr />
+**Hope that helps!**

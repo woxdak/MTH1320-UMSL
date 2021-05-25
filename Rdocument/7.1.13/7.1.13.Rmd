@@ -1,0 +1,95 @@
+---
+title: "7.1.13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 7.1.13
+
+The data in the table represent the ages of the winners of an award for the past five years. Use the data to answer questions​ (a) through​ (e).
+​(Assume that sampling is without​ replacement.)
+<br/>
+
+**(a)Find the population mean age of the five winners.**
+
+First, we need to import the data from Excel. Illustrations shows importing data mannually
+```{r}
+data <- c(37,42,49,49,43)
+```
+<hr />
+We use mean() command to find the population mean
+```{r}
+mean(data)
+```
+<hr />
+<br/>
+**(b) For samples of size​ 3, construct a table of all possible samples and their sample means.**
+
+To construct the table of all possible samples of size 3, we use combn() command
+```{r}
+combn(data,3)
+```
+<hr />
+To find sample mean, we run
+```{r}
+x = combn(data, 3, mean)
+x
+```
+<hr />
+Round the answer to 2 decimal places
+```{r}
+print(x, 4)
+```
+<hr />
+**(c) Draw a dotplot for the sampling distribution of the sample mean for samples of size 3. Choose the correct dotplot below.**
+
+To draw a dotplot for sample mean, we use stripchart() command. method="stack" shows the data on top of each other. pch=20 represents dark circle as a data. cex=3 indicates the size of circle. 
+```{r}
+stripchart(x, method="stack", pch=20, cex =3)
+```
+
+R provides dotchart() command which gives a chart slightly different from the one in Pearson.
+You could try it by running dotchart()
+```{r}
+dotchart(as.numeric(x))
+```
+
+<hr />
+**(d) For a random sample of size​ 3, what is the chance that the sample mean will equal the population​ mean?**
+
+Firstly, we need to round sample means to 2 decimal places
+```{r}
+x = round(x,2)
+x
+```
+We can use table() command to get the frequency table
+```{r}
+table(x)
+```
+We can check mannually z.if the mean is in the frequency table or we can run 
+```{r}
+table(x)[names(table(x)) == 44]
+```
+Since the frequency is 0, the chance is 0 
+<hr />
+
+**(e) For a random sample of size​ 3, obtain the probability that the sampling error made in estimating the population mean by the sample mean will be 3 years or​ less; that​ is, determine the probability that x overbar will be within 3 years of mu.**
+
+To find the lower and upper bound, we run 
+```{r}
+44 - 3
+44 + 3
+```
+We can use table() command to get the frequency table
+```{r}
+table(x)
+```
+Since the frequency between these range is 9, we can find the probability by running 
+```{r}
+9/length(x)
+```
+<hr />
+**Hope that helps!**

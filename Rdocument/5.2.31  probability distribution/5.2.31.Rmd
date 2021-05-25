@@ -1,0 +1,63 @@
+---
+title: "5.2.31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 5.2.31
+
+The random variable X is the crew size of a randomly selected shuttle mission. Its probability distribution is shown below. Complete parts a through c.
+<br/>
+<hr/>
+```{r}
+data <- read.csv("~/R/Chapter 2/5.2.31  probability distribution/5.2.31.csv")
+data
+```
+We store data into two variables x and P 
+```{r}
+x = data$x
+x
+P = data$P.X.x.
+P
+```
+<hr/>
+**(a). Find and interpret the mean of the random variable. **
+```{r}
+mu = sum(x*P)
+mu
+```
+Round to three decimal places
+```{r}
+round(mu, 3)
+```
+
+**(b). Obtain the standard deviation of the random variable. **
+
+We can find standard deviation by using formula $\sigma=\sqrt{\sum(x-\mu)^2P(X=x)}$
+```{r}
+sigma = sqrt(sum((x-mu)^2*P))
+sigma
+```
+Round to three decimal places
+```{r}
+round(sigma, 3)
+```
+<hr/>
+We can use alternative formula to find standarad deviation $\sigma=\sqrt{\sum x^2P(X=x)- \mu^2}$
+
+```{r}
+sigma2 = sqrt(sum(x^2*P)-mu^2)
+sigma2
+```
+
+**(c). Draw a probability histogram for the random variable. Choose the correct graph below. **
+
+```{r}
+barplot(P, names.arg = x)
+```
+
+<hr/>
+**Hope that helps!**
