@@ -1,0 +1,58 @@
+---
+title: "10.5.149"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 10.5.149
+
+The null hypothesis is $H_0:\mu_1=\mu_2$ and the alternative hypothesis is as specified. The provided data are from a simple random paired sample from the two populations under consideration. Use the paired​ t-test to perform the required hypothesis test at the​ 10% significance level.
+
+$H_a:\mu_1 \neq \mu_2$
+
+<br/>
+
+**Find the test statistic. Use population 1 minus population 2 as the difference. (Round to three decimal places as​ needed.)**
+
+First, we need to get the data from the question
+```{r}
+population1 <- c(5, 19, 20, 21, 7, 10, 9)
+population2 <- c(3, 18, 17, 15, 3, 11, 6)
+```
+<hr />
+**Use population 1 minus population 2 as the difference.**
+
+We store difference between population 1 and population 2 in variable difference and run test statistic.
+Since this is two-tailed test and significant level = 10%, we have confidence level = .9 
+**First approach use t.test()**
+```{r}
+difference = population1 - population2
+t.test(difference, conf.level = .9)
+```
+Round to 3 decimal places
+```{r}
+print(t.test(difference, conf.level = .9),6)
+```
+Since we have 7 pairs of data, our degree of freedom is 7- 1 = 6 and we have two-tailed test with $\alpha = .1$, the area to the left of negative critical value = $\alpha/2$ so $t_{\alpha/2}$ 
+```{r}
+round(qt(.1/2, 6), 3)
+```
+
+Since the test statistic value t = 3.057 is larger than the positive critical value $t_{\alpha/2} = 1.943$, we have enough evidence to reject hypothesis.
+<hr/>
+**Second appraach to find test statistic, we can use formula**
+$t=\frac{\bar d}{\frac{s_d}{\sqrt{n}}}$
+```{r}
+n = 7
+mean(difference)/(sd(difference)/sqrt(n))
+```
+Round to 3 decimal places
+```{r}
+round(mean(difference)/(sd(difference)/sqrt(n)),3)
+```
+**It is good to know both approaches so we could check the answer from t.test() in R**
+<hr/>
+**Hope that helps!**

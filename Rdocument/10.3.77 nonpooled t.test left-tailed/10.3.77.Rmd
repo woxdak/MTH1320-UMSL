@@ -1,0 +1,92 @@
+---
+title: "10.3.77"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 10.3.77
+
+Provided below are summary statistics for independent simple random samples from two populations. Use the nonpooled​ t-test and the nonpooled​ t-interval procedure to conduct the required hypothesis test and obtain the specified confidence interval.
+
+$\bar x_{1} = 18, s_1=3, n_1=20$
+
+$\bar x_{2} = 21, s_2=5, n_2=15$
+
+<br/>
+
+**(a).​ What are the correct hypotheses for a​ left-tailed test?**
+
+Since it is a left-tailed test, the correct hypothese is 
+
+$H_0: \mu_1 =\mu_2$
+
+$H_a: \mu_1 < \mu_2$
+
+**Find the test statistic. (Round to three decimal places as​ needed.)**
+
+First, we need to get the data from the question
+```{r}
+x1 = 18
+s1 = 3
+n1 = 20
+x2 = 21
+s2 = 5
+n2 = 15
+```
+<hr />
+This is a nonpooled t-test, to compute the test statistic t we use the formular 
+$t= \frac{\bar x_1-\bar x_2}{\sqrt{s_1^2/n_1+s_2^2/n_2}}$
+```{r}
+t=(x1-x2)/sqrt((s1^2/n1)+(s2^2)/n2)
+t
+```
+Round the answer to three decimal places
+```{r}
+round(t,3)
+```
+**Now determine the critical values. (Round to three decimal places as​ needed.)**
+
+We need to find degree of freedom by using the formula
+$\Delta=\frac{[(s_1^2/n_1)+(s_2^2/n_2)]^2}{\frac{(s_1^2/n_1)^2}{n_1-1}+\frac{(s_2^2/n_2)^2}{n_2-1}}$
+```{r}
+deg = ((s1^2/n1) + (s2^2/n2))^2 / ( (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1) )
+```
+Round down to nearest interger
+```{r}
+deg = floor(deg)
+```
+Since this is a left-tailed test and $\alpha = .05$, the area to the left of $\alpha$ is equal to $\alpha$
+```{r}
+alpha = .05
+t_critical = abs(qt(alpha,deg))
+t_critical
+```
+**Since we use abs() command so it return the positive value of $t_{\alpha}$**
+Round the answer to three decimal places
+```{r}
+round(t_critical,3)
+```
+Since our test statistic t = -2.062 < our critical value $t_{\alpha}$ = -1.721, out test statistic lies in the rejected region. So we have enough evidence to reject null hypothesis.
+<hr />
+<br/>
+**(b) The 90% confidence interval is from... to...​(Round to three decimal places as​ needed.)**
+
+90% confidence interval means $\alpha = .1$ so our critical value $=\alpha/2=.05$ $t_{\alpha/2} = t_{critical value}$
+
+To find confidence interval we use the formular $(\bar x_1 - \bar x_2) \pm t_{\alpha/2}.\sqrt{s_1^2/n_1+s_2^2/n_2}$
+
+```{r}
+(x1-x2) + t_critical * sqrt(s1^2/n1+s2^2/n2)
+(x1-x2) - t_critical * sqrt(s1^2/n1+s2^2/n2)
+```
+Round to three decimal places
+```{r}
+round((x1-x2) + t_critical * sqrt(s1^2/n1+s2^2/n2),3)
+round((x1-x2) - t_critical * sqrt(s1^2/n1+s2^2/n2),3)
+```
+We finish a lot of complicated work by using R
+<hr />
+**Hope that helps!**

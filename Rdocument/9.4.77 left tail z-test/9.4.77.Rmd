@@ -1,0 +1,55 @@
+---
+title: "9.4.77"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 9.4.77
+
+A sample​ mean, sample​ size, and population standard deviation are provided below. Use the​ one-mean z-test to perform the required hypothesis test at the 1%  significance level.
+
+$\bar x$ = 17, n =34, $\sigma$ = 10, $H_0: \mu =22, H_a: \mu < 22$
+<br/>
+
+**The test statistic is z = **
+
+First, we need to get the data the question
+```{r}
+x = 17
+n = 34
+sigma = 10
+mu = 22
+```
+<hr />
+To get the test statistic z we use the formular $z = (\bar x-\mu)/(\sigma/\sqrt{n})$, we run
+```{r}
+z = (x-mu)/(sigma/sqrt(n))
+z
+```
+Round the answer to two decimal places
+```{r}
+round(z,2)
+```
+<hr />
+<br/>
+**(b) Identify the critical​ value(s). Select the correct choice below and fill in the answer box within your choice.​(Round to two decimal places as​ needed.).**
+
+First, this is a left tail test since $H_a: \mu < 22$, we have the negative critical value which is on the left of the graph.
+
+Since the significance level is 1%, we can use qnorm() to get the z value
+```{r}
+qnorm(.01)
+```
+<hr />
+Round to two decimal places
+```{r}
+round(qnorm(.01), 2)
+```
+<hr />
+Since our test statistic z = -2.92 < our critical value $z_{\alpha}$ = -2.33, out test statistic lies in the rejected region. So we have enough evidence to reject null hypothesis.
+
+<hr />
+**Hope that helps!**

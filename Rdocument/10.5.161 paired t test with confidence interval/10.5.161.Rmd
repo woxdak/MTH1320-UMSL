@@ -1,0 +1,58 @@
+---
+title: "10.5.161"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 10.5.161
+
+A group of 8 students were given the same standardized test twice to see whether retaking the test affected the score. The table gives the score differences for the 8students. Use the paired​ t-interval procedure to determine a 95%  confidence interval for the difference between the mean scores on the first test and the second test​ (retake). 
+(Note: $\bar d = -1.25, s_d = 50.55$)
+
+<br/>
+
+**The 95% confidence interval is from ... to ...**
+
+First, we need to get the data from the question. (We could import the data from Excel)
+```{r}
+difference <- c(-30, 30, -40, -40, 80, 60, -50, -20)
+```
+We can check the data from Note
+```{r}
+round(mean(difference),2)
+round(sd(difference),2)
+```
+<hr />
+We have confidence level = .95
+
+**First approach use t.test()**
+```{r}
+t.test(difference, conf.level = .95)
+```
+Round to 2 decimal places
+```{r}
+print(t.test(difference, conf.level = .95),4)
+```
+
+**Second appraach to find confidence interval, we can use formula**
+$\bar d \pm t_{\alpha/2}.\frac{s_d}{\sqrt{n}}$
+
+Since the confidence level = .95, we have $\alpha = .05$
+```{r}
+alpha = .05
+n = length(difference)
+talpha2 = abs(qt(alpha/2, n-1))
+mean(difference) + talpha2 *(sd(difference)/sqrt(n))
+mean(difference) - talpha2 *(sd(difference)/sqrt(n))
+```
+Round to 2 decimal places
+```{r}
+round(mean(difference) + talpha2 *(sd(difference)/sqrt(n)),2)
+round(mean(difference) - talpha2 *(sd(difference)/sqrt(n)),2)
+```
+**It is good to know both approaches so we could check the answer from t.test() in R**
+<hr/>
+**Hope that helps!**

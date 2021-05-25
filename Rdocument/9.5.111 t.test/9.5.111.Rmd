@@ -1,0 +1,63 @@
+---
+title: "9.5.111"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 9.5.111
+
+A sample​ mean, sample​ size, and sample standard deviation are provided below. Use the​ one-mean t-test to perform the required hypothesis test at the 1​% significance level.
+
+
+$\bar x$ = 21, s = 10, n = 32, $ $H_0: \mu =27, H_a: \mu \neq 27$
+<br/>
+
+**The test statistic is t = **
+
+First, we need to get the data the question
+```{r}
+x = 21
+s = 10
+n = 32
+mu = 27
+```
+<hr />
+To get the test statistic t we use the formular $t = \frac{\bar x-\mu}{\frac{s}{\sqrt{n}}}$, we run
+```{r}
+t = (x-mu)/(s/sqrt(n))
+t
+```
+Round the answer to two decimal places
+```{r}
+round(t,2)
+```
+<hr />
+<br/>
+**Identify the critical​ value(s). Select the correct choice below and fill in the answer box within your choice.(Round to three decimal places as​ needed.).**
+
+First, this is a two tailed test since $H_a: \mu \neq 27$, we have two critical values.
+
+We need to find degree of freedom
+```{r}
+deg = n-1
+```
+
+Since the significance level is 1% and this is a two tail test, the area to the left of a negative critical will be .01/2
+
+We can find the negative critical value by use qt() command
+```{r}
+qt(.01/2, deg)
+```
+<hr />
+Round to three decimal places
+```{r}
+round(qt(.01/2, deg),3)
+```
+<hr />
+Since our test statistic t = -3.39 < our critical value $t_{\alpha/2}$ = -2.744, out test statistic lies in the rejected region. So we have enough evidence to reject null hypothesis.
+
+<hr />
+**Hope that helps!**

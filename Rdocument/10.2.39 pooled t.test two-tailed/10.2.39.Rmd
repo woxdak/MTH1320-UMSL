@@ -1,0 +1,92 @@
+---
+title: "10.2.39"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 10.2.39
+
+Provided below are summary statistics for independent simple random samples from two populations. Use the pooled​ t-test and the pooled​ t-interval procedure to conduct the required hypothesis test and obtain the specified confidence interval.
+
+$\bar x_{1} = 15, s_1=2.3, n_1=15$
+
+$\bar x_{2} = 16, s_2=2.2, n_2=15$
+
+<br/>
+
+**(a).​ First, what are the correct hypotheses for a​ two-tailed test?**
+
+Since it is a two tailed test, the correct hypothese is 
+
+$H_0: \mu_1 =\mu_2$
+
+$H_a: \mu_1 \neq \mu_2$
+
+**Next, compute the test statistic. (Round to three decimal places as​ needed.)**
+
+First, we need to get the data from the question
+```{r}
+x1 = 15
+s1 = 2.3
+n1 = 15
+x2 = 16
+s2 = 2.2
+n2 = 15
+```
+<hr />
+This is a pooled t-test, to compute pooled sample standard deviation we use the formula 
+$s_p= \frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}$
+```{r}
+sp = sqrt( ( (n1-1)*s1^2 + (n2-1)*s2^2 )/ (n1+n2-2) )
+sp
+```
+To get the test statistic t we use the formular 
+$t= \frac{\bar x_1-\bar x_2}{s_p \sqrt{1/n_1+1/n_2}}$, we run
+```{r}
+t = (x1-x2)/(sp*sqrt(1/n1+1/n2))
+t
+```
+Round the answer to three decimal places
+```{r}
+round(t,3)
+```
+**Now determine the critical values. (Round to three decimal places as​ needed.)**
+
+We need to find degree of freedom
+```{r}
+deg = n1+n2-2
+```
+Since this is a two-tailed test and $\alpha = .01$, the area to the left of a negative critical value is equal to $\alpha/2$
+```{r}
+alpha = .01
+t_critical = abs(qt(alpha/2,deg))
+t_critical
+```
+Round the answer to three decimal places
+```{r}
+round(t_critical,3)
+```
+Since our test statistic t = -1.217 > our negative critical value $t_{\alpha/2}$ = -2.763 and < our positive critical value $t_{\alpha/2}$ = 2.763, out test statistic does not lie in the rejected region. So we do not have enough evidence to reject null hypothesis.
+<hr />
+<br/>
+**(b) The 99% confidence interval is from... to...​(Round to three decimal places as​ needed.)**
+
+99% confidence interval means $\alpha = .01$ so $t_{\alpha/2}=t_{critical value}$
+
+To find confidence interval we use the formular $(\bar x_1 - \bar x_2) \pm t_{\alpha/2}.s_p\sqrt{1/n_1+1/n_2}$
+
+```{r}
+(x1-x2) - t_critical*sp*sqrt(1/n1+1/n2)
+(x1-x2) + t_critical*sp*sqrt(1/n1+1/n2)
+```
+Round to three decimal places
+```{r}
+round((x1-x2) - t_critical*sp*sqrt(1/n1+1/n2),3)
+round((x1-x2) + t_critical*sp*sqrt(1/n1+1/n2),3)
+```
+We finish a lot of complicated work by using R
+<hr />
+**Hope that helps!**
