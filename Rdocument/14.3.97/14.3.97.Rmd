@@ -1,0 +1,113 @@
+---
+title: "14.3.97"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 14.3.97
+
+Use the table and the given regression equation to answer parts​ (a)-(e).
+$\hat{y}=7.7 - 1.5x$
+
+<br/>
+<hr/>
+**Compute​ SST, SSR, and​ SSE, using the​ formulas, .**
+
+First we need to get the data from the question. (We can import it from Excel)
+```{r}
+x<- c(0, 2, 2, 5, 6)
+y<- c(8, 10,  0, -4,  2)
+```
+<hr/>
+From formula sheet
+
+$S_{xx}=\sum(x_i-\bar{x})^2=\sum x_i^2-(\sum x_i)^2/n$
+
+$S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=\sum x_iy_i-(\sum x_i)(\sum y_i)/n$
+
+$S_{yy}=\sum(y_i-\bar{y})^2=\sum y_i^2-(\sum y_i)^2/n$
+
+<hr/> Total sum of squares: 
+$SST =\sum(y_i-\bar{y})^2 = S_{yy}$
+
+Regression sum of squares: 
+$SSR=\sum(\hat{y_i}-\bar{y})^2=S_{xy}^2/S_{xx}$
+
+Error sum of squares:
+$SSE=\sum (y_i-\hat{y_i})^2=S_{yy} - S_{xy}^2/S_{xx}$
+
+Regression identity: 
+$SST = SSR + SSE$
+
+Coefficient of determination: 
+$r^2=\frac{SSR}{SST}$
+
+Linear correlation coefficient: 
+$r=\frac{\frac{1}{n-1}\sum(x_i-\bar{x})(y_i-\bar{y})}{s_xs_y}$ or 
+$r=\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}$
+<hr/>
+**Names of variables**
+
+$S_{xx}: Sxx$
+
+$S_{xy}: Sxy$
+
+$S_{yy}: Syy$
+
+
+**Compute the three sums of​ squares, SST,​ SSR, and​ SSE, using the defining formulas.**
+
+Since the quesiton gives linear regression line, we will find SST, SSR, and SSE by using the first formula.
+
+We could find SST, SSR, and SSE by using the same approach in question **14.3.100** without linear regression line. We can consider that approach is for double checking purpose. 
+
+To compute $\hat{y}$
+```{r}
+yh = 7.7 - 1.5 * x
+```
+**Find SST**
+```{r}
+SST = sum( (y-mean(y))^2 )
+SST
+```
+**Find SSR**
+```{r}
+SSR = sum( (yh-mean(y))^2 )
+SSR
+```
+**Find SSE**
+```{r}
+SSE = sum( (y-yh)^2 )
+SSE
+```
+
+**(b). Verify the regression​ identity, SST​ = SSR​ + SSE. Is this statement​ correct?**
+```{r}
+SSE + SSR == SST
+```
+
+<hr/>
+**(c). Determine the value of $r^2$​, the coefficient of determination.**
+**Second approach: using summary() in R**
+
+We can use the formula $r^2=\frac{SSR}{SST}$ and round to four decimal places
+```{r}
+round(SSR/SST, 4)
+```
+
+<hr/>
+**(d) Determine the percentage of variation in the observed values of the response variable that is explained by the regression.**
+
+Show percentage value of $r^2$
+```{r}
+round(SSR/SST, 4) * 100
+```
+<hr/>
+**(e) State how useful the regression equation appears to be for making predictions.**
+
+Since the $r^2$ value is close to .5, it is moderately useful to use regression equation
+<hr/>
+**Hope that helps!**

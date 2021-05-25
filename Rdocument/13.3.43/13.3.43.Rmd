@@ -1,0 +1,45 @@
+---
+title: "13.3.43"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 13.3.43
+The table provides data on gender and college for the students in one section of the course Introduction to Computer Science. In the​ table, we have used the abbreviations BUS for​ Business, ENG for Engineering and Applied​ Sciences, and LIB 
+
+<br/>
+<hr/>
+
+**Group the bivariate data into a contingency table.**
+
+First we need to get the data from the question. (We can import it from Excel)
+```{r}
+data <- read.csv("~/R/Chapter 2/13.3.43/13.3.43.csv")
+data
+```
+We store data into 2 variables Gender and College
+```{r}
+Gender = data$Gender
+College = data$College
+```
+First we can find total Male and Female
+```{r}
+table(Gender)
+```
+Then we can find the total of BUS, ENG, and LIB
+```{r}
+table(College)
+```
+We can finish a contingency table by running
+```{r}
+table(paste(College,Gender))
+```
+Total
+```{r}
+sum(as.integer(table(Gender)))
+```
+<hr/>
+**Hope that helps!**

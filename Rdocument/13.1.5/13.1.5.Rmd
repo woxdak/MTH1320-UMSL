@@ -1,0 +1,30 @@
+---
+title: "13.1.5"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 13.1.5
+
+For a $\chi^2$-curve with 22 degrees of​ freedom, find the chi squared
+​-value that has area 0.05 to its right.
+
+<br/>
+$\chi_\alpha^2$ has $\alpha$ is the area to the right under $\chi$ curve 
+
+We can get $\chi^2$ value by using the table or we can run qchisq()
+
+qchisq() takes in the area to the left and degree of freedom
+
+```{r}
+qchisq(.95,22)
+```
+Round to three decimal places
+```{r}
+round(qchisq(.95,22),3)
+```
+<hr/>
+**Hope that helps!**

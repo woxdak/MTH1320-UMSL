@@ -1,0 +1,80 @@
+---
+title: "13.4.75"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 13.4.75
+The contingency table shown to the right gives a​ cross-classification of a random sample of values for two​ variables, x and​ y, of a population.
+
+<br/>
+<hr/>
+
+**Find the test statistic.,$\chi^2$**
+
+First we need to get the data from the question. (We can import it from Excel)
+```{r}
+data <- read.csv("~/R/Chapter 2/13.4.75/13.4.75.csv")
+data
+```
+We store data into dframe
+```{r}
+dframe = data.frame(data)
+dframe
+```
+<hr/>
+Conditions to run a chi-square test
+
+* All expected frequencies are 1 or greater
+
+* At most 20% of the expected frequencies are less than 5
+
+* The sample is a simple random sample
+
+* The sample is an independent sample
+<hr/>
+**(a). Compute the expected frequencies and add them into the table given below.**
+
+First we need to create a new data frame which does not contain a column of names so our data frame only contains data. 
+
+We can use subset to drop column of name.
+```{r}
+dframe2 = subset(dframe, select = -c(X))
+dframe2
+```
+To see the difference between dframe and dframe2, we can run
+```{r}
+dframe
+```
+**To find expected frequencies, we can run**
+```{r}
+chisq.test(dframe2, correct=FALSE)$expected
+```
+**b. The test statistic is **
+
+We run chisq.test()
+```{r}
+chisq.test(dframe2, correct=FALSE)
+round(chisq.test(dframe2, correct=FALSE)$statistic,2)
+```
+**(c). What are the null and alternative​ hypotheses?**
+Since chi-square statistic test the independence of two variables, the correct hypothesis is
+
+$H_0:$ The two variables, x and y, are not associated
+
+$H_a:$ The two variables, x and y, are associated.
+
+Since df = 1, to find critical value for $\alpha = .51$
+```{r}
+alpha = .05
+round(qchisq(1- alpha,1),3)
+```
+Since $\chi^2$ is right-tailed test by nature, our test statistic lies in rejected region 30.86 > 3.841 , we have enough evidence to reject the hypothesis
+<hr/>
+
+
+<hr/>
+**Hope that helps!**

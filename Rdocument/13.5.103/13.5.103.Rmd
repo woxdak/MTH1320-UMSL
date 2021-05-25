@@ -1,0 +1,146 @@
+---
+title: "13.5.103"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 13.2.18
+
+Perform a​ chi-square homogeneity test. An independent simple random sample of residents in three regions gave the data on race shown in the table. At the 1 % significance​ level, do the data provide sufficient evidence to conclude that a difference exists in race distributions among the three​ regions?
+
+<br/>
+<hr/>
+**Name of variables**
+
+* row total: rTotal
+
+* column total: cTotal
+
+* total numbers of data: total
+
+* original data: dframe1
+
+* expected frequencies data: dframe2 
+<hr/>
+
+**What are the null and alternative​ hypotheses?**
+
+Since the question asks "that a difference exists in race distributions among the three​ regions", the correct hypothesis is 
+
+$H_0:$ The racial distribution is the same in each of the three regions.
+
+$H_a:$ The racial distribution is not the same in each of the three regions.
+
+**Find the test statistic.,$\chi^2$**
+
+First we need to get the data from the question. (We can import it from Excel)
+```{r}
+data <- read.csv("~/R/Chapter 2/13.5.103/13.5.103.csv")
+data
+```
+We store data into 2 different frame. The first one shows original data. The second shows expected frequency.
+```{r}
+dframe1 = data.frame(data)
+dframe2 = data.frame(data)
+```
+<hr/>
+Conditions to run a chi-square test
+
+* All expected frequencies are 1 or greater
+
+* At most 20% of the expected frequencies are less than 5
+
+* The sample is a simple random sample
+
+* The sample is an independent sample
+<hr/>
+**First approach: using chisq() in R which professor Covert introduces in the video lectures.(Recommended)**
+
+**This approach is cleaner and faster**
+
+First we need to create a new data frame which does not contain a column of names so our data frame only contains data. 
+
+We can use subset to drop column of name.
+```{r}
+dframe3 = subset(dframe1, select = -c(X.))
+dframe3
+```
+To see the difference between dframe1 and dframe3, we can run
+```{r}
+dframe1
+```
+We run chisq.test()
+```{r}
+chisq.test(dframe3, correct=FALSE)
+```
+Since df = 4, to find critical value for $\alpha = .01$
+```{r}
+alpha = .01
+round(qchisq(1- alpha,4),3)
+```
+Since $\chi^2$ is right-tailed test by nature, our test statistic does not lie in rejected region 7.282 < 13.277 , we do not have enough evidence to reject the hypothesis
+<hr/>
+**If the question ask about expected frequencies, we can find it by running**
+```{r}
+chisq.test(dframe3, correct=FALSE)$expected
+```
+<hr/>
+**Second approach using formular**
+
+First we need to find row total and column total.
+```{r}
+cTotal = rep(0, nrow(dframe2))
+rTotal = c()
+for (i in 2:ncol(dframe2)){
+  cTotal = cTotal + dframe2[,i]
+  rTotal = c(rTotal, sum(dframe2[,i]))
+}
+total = sum(cTotal)
+```
+
+```{r}
+cTotal
+rTotal
+total
+```
+We can find the test statistic $\chi^2$ by using the formula 
+$\chi^2=\sum{\frac{(O-E)^2}{E}}$
+```{r}
+for (i in 2:ncol(dframe2)){
+  dframe2[,i] <- sum(dframe2[,i])*cTotal/total
+  print(dframe2[,i])
+}
+dframe2
+```
+**Find the test statistic.,$\chi^2$**
+```{r}
+chi = 0
+for (i in 2:ncol(dframe2)){
+  chi = chi + sum((dframe1[,i]-dframe2[,i])^2/dframe2[,i])
+}
+chi
+```
+Round to  three decimal places 
+```{r}
+round(chi,3)
+```
+**Find the critical value.$\chi_{\alpha}^2$**
+
+We find degree of freedom by using the formula $df=(r-1)(c-1)$
+
+Since dframe2 has 4 variables and the first one is x, so ncol(dframe2) returns 1 more than actual value. We find degree of freedom by running
+```{r}
+df = (ncol(dframe2)-2) * (nrow(dframe2)-1)
+df
+```
+Our significant level is 1%, so $\alpha = .01$
+```{r}
+alpha = .01
+round(qchisq(1- alpha,df),3)
+```
+Since $\chi^2$ is right-tailed test by nature, our test statistic does not lie in rejected region 7.282 < 13.277 , we do not have enough evidence to reject the hypothesis
+<hr/>
+**Hope that helps!**

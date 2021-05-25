@@ -1,0 +1,52 @@
+---
+title: "12.1.31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 12.1.31
+
+For the specified margin of error and confidence​ level, obtain a sample size that will ensure a margin of error of at most the one specified.
+
+margin of error = 0.05​; confidence level = 95%
+<br/>
+<hr/>
+Since confidence level is .95, $\alpha = 1 - .95 = .05$. So $\alpha/2=.05/2$
+
+We can find $z_{\alpha/2}$ by using qnorm()
+```{r}
+alpha = .05
+zalpha2= abs(qnorm(alpha/2))
+E = .05
+```
+From question 12.1.25 we can find the margin of error for a​ 95% confidence interval by using the formular $E=z_{\alpha/2}.\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+
+This question is reverse, instead of finding E, the question gives us margin of error E and confidence level, ask us to find sample size n to meet the requirement. 
+
+As professor Covert introduces in chapter 12 worksheet, we can derive the formula $E=z_{\alpha/2}.\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ 
+
+to $n=\hat{p}.(1-\hat{p}).(\frac{z_{\alpha/2}}{E})^2$
+
+Since the proportion $\hat{p}$ runs from 0 to 1 so $\hat{p}.(1-\hat{p})$ will have the maximum value at $\hat{p}=.5$ or $\hat{p}.(1-\hat{p}) =.25$ 
+
+For example, if we let $\hat{p} = x$ and $y= \hat{p}.(1-\hat{p})$ we have $y = -x^2 + x$. This parabola has vertex at $x=-\frac{b}{2a}=-\frac{1}{2.(-1)}=\frac{1}{2}$ and $y = -(\frac{1}{2})^2+\frac{1}{2}=\frac{1}{4}$
+
+Since we do not know the sample proportion $\hat{p}$, we know that $n \le \frac{1}{4}.(\frac{z_{\alpha/2}}{E})^2$
+
+The question asks obtain a sample size that will ensure a margin of error of **at most** the one specified.
+
+We find the sample size by using the formula $n = \frac{1}{4}.(\frac{z_{\alpha/2}}{E})^2$
+
+```{r}
+n = 0.25 * (zalpha2 / E)^2
+n
+```
+Round up to nearest integer
+```{r}
+ceiling(n)
+```
+<hr/>
+**Hope that helps!**

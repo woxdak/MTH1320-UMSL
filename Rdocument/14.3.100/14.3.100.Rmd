@@ -1,0 +1,177 @@
+---
+title: "14.3.100"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 14.3.100
+
+Following are chest size and weight data for 8 randomly selected bears.​ Here, x denotes chest​ size, in​ inches, and y denotes​ weight, in pounds. Use the information to do parts​ (a) through​ (d).
+
+$\sum x = 396, \sum y = 2362, \sum xy = 118330, \sum x^2 = 19870$
+<br/>
+<hr/>
+**Compute​ SST, SSR, and​ SSE, using the​ formulas, .**
+
+First we need to get the data from the question. (We can import it from Excel)
+```{r}
+x<- c(55, 44, 46, 58, 40, 54, 52, 47)
+y<- c(325, 253, 263, 340, 251, 315, 310, 305)
+```
+<hr/>
+From formula sheet
+
+$S_{xx}=\sum(x_i-\bar{x})^2=\sum x_i^2-(\sum x_i)^2/n$
+
+$S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=\sum x_iy_i-(\sum x_i)(\sum y_i)/n$
+
+$S_{yy}=\sum(y_i-\bar{y})^2=\sum y_i^2-(\sum y_i)^2/n$
+
+<hr/> Total sum of squares: 
+$SST =\sum(y_i-\bar{y})^2 = S_{yy}$
+
+Regression sum of squares: 
+$SSR=\sum(\hat{y_i}-\bar{y})^2=S_{xy}^2/S_{xx}$
+
+Error sum of squares:
+$SSE=\sum (y_i-\hat{y_i})^2=S_{yy} - S_{xy}^2/S_{xx}$
+
+Regression identity: 
+$SST = SSR + SSE$
+
+Coefficient of determination: 
+$r^2=\frac{SSR}{SST}$
+
+Linear correlation coefficient: 
+$r=\frac{\frac{1}{n-1}\sum(x_i-\bar{x})(y_i-\bar{y})}{s_xs_y}$ or 
+$r=\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}$
+<hr/>
+**Names of variables**
+
+$S_{xx}: Sxx$
+
+$S_{xy}: Sxy$
+
+$S_{yy}: Syy$
+
+
+**First approach, we find SST, SSR, SSE without finding $\bar x, \bar y$**
+
+```{r}
+n = length(x)
+```
+We have the same dataset from the question.
+
+Find $S_{xy}, S_{xx}, S_{yy}$
+```{r}
+Syy = sum(y*y) - sum(y)^2/n
+Sxx = sum(x*x) - sum(x)^2/n
+Sxy = sum(x*y) - sum(x) * sum(y) /n
+```
+
+```{r}
+Sxx
+Sxy
+Syy
+```
+**Find SST**
+```{r}
+SST = Syy
+SST
+```
+Round to two decimal places
+```{r}
+round(SST,2)
+```
+
+**Find SSR**
+```{r}
+SSR = Sxy^2/Sxx
+SSR
+```
+Round to two decimal places
+```{r}
+round(SSR,2)
+```
+**Find SSE**
+```{r}
+SSE = Syy - Sxy^2/Sxx
+SSE
+```
+Round to two decimal places
+```{r}
+round(SSE,2)
+```
+Check if SSE + SSR = SST
+```{r}
+SSE + SSR == SST
+```
+<hr/>
+**Second approach finding SST, SSR, SSE using $\bar x, \bar y$ **
+
+```{r}
+Sxx = sum((x-mean(x))^2)
+Sxy = sum((x-mean(x))*(y-mean(y)))
+Syy = sum((y-mean(y))^2)
+```
+
+```{r}
+Sxx
+Sxy
+Syy
+```
+<hr/>
+**(b) Compute the coefficient of​ determination, $r^2$**
+
+**First approach: using the formula**
+
+Linear correlation coefficient
+```{r}
+r = Sxy/sqrt(Sxx*Syy)
+r
+```
+Coefficient of​ determination $r^2$
+```{r}
+r^2
+```
+Round to four decimal places
+```{r}
+round(r^2, 4)
+```
+<hr/>
+**Second approach: using summary() in R**
+
+Multiple R-squared = coefficient of determination
+```{r}
+summary(lm(y~x))
+```
+
+**Third approach: using cor() in R**
+To find r, we run
+```{r}
+cor(x,y)
+```
+To find $r^2$, we run
+```{r}
+cor(x,y)^2
+```
+Round to 4 decimal places
+```{r}
+round(cor(x,y)^2, 4)
+```
+<hr/>
+**(c) Determine the percentage of variation in the observed values of the response variable explained by the​ regression, and interpret your answer.**
+
+Show percentage value of $r^2$
+```{r}
+round(cor(x,y)^2, 4) * 100
+```
+<hr/>
+**(d) State how useful the regression equation appears to be for making predictions. Choose the correct answer below.**
+
+Since the $r^2$ value is close to 1, it is very useful to use regression equation
+<hr/>
+**Hope that helps!**

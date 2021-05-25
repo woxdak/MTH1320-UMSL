@@ -1,0 +1,130 @@
+---
+title: "12.3.101"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 12.3.101
+
+The numbers of successes and the sample sizes for independent simple random samples from two populations are provided for a​ left-tailed test and an​ 80% confidence interval. Complete parts​ (a) through​ (d).
+$x_1 = 20, n_1 = 50,x_2 = 23, n_2 = 50, \alpha =.10$
+
+<br/>
+
+**(a). Determine the sample proportion.**
+We use the formula $\hat{p}= \frac{x}{n}$
+```{r}
+x1 = 20
+n1 = 50
+p1 = x1/n1
+p1
+```
+$\hat{p_1} = .4$
+```{r}
+x2 = 23
+n2 = 50
+p2 = x2/n2
+p2
+round(p2,3)
+```
+$\hat{p_2} = .46$
+```{r}
+p = (x1 + x2)/(n1+n2)
+p
+round(p,3)
+```
+$\hat{p} = .43$
+
+**(b) Decide whether using the​ two-proportions z-procedures is appropriate.**
+
+There are two conditions for two-proportions z test:
+
+1) simple random sample
+
+2) $x_1,n_1-x_1,x_2,n_2-x_2,$ are 5 are greater
+
+The first condition is passed since the question specifies a simple random sample
+
+To check the second condition we can run 
+```{r}
+x1 >= 5
+n1 - x1 >= 5
+x2 >= 5
+n2 - x2 >= 5
+```
+
+**(c).If​ appropriate, use the​ two-proportions z-test to conduct the required hypothesis test.What are the hypotheses for this​ test?.**
+Since this is a left-tailted test, we have 
+
+$H_0:p_1=p_2, H_a:p_1<p_2$
+
+To compute test statistic z we use the formula $z=\frac{\hat{p_1}-\hat{p_2}}{\sqrt{\hat{p_p}(1-\hat{p_p})}.\sqrt{(\frac{1}{n_1})+(\frac{1}{n_2})}}$
+
+```{r}
+z  = (p1 -p2)/(sqrt(p*(1-p)) * sqrt(1/n1+1/n2))
+z
+```
+Round to two decimal places
+```{r}
+round(z,2)
+```
+
+**Identify the critical​ value(s), if appropriate. Select the correct choice below​ and, if​ necessary, fill in the answer box to complete your answer.**
+
+It is a left-tailed test with $\alpha = .1$, so the area to the left of critical value = .1
+
+To find negative critical value, we run
+```{r}
+round(qnorm(.1),2)
+```
+Since $-z_{\alpha}=-1.28< z = -.61$ the test statistic does not lie in rejected region. We do not have enough evidence to reject hypothesis.
+
+**(d) If​ appropriate, use the​ two-proportions z-interval procedure to find the specified confidence interval. Select the correct choice below​ and, if​ necessary, fill in the answer boxes to complete your answer.**
+
+**The 80% confidence interval is from... to...**
+
+**First approach we calculate confidence interval using margin of error **
+
+To calculate margin of error we use formula $E=z_{\alpha/2}.\sqrt{\frac{\hat{p_1}(1-\hat{p1})}{n_1}+\frac{\hat{p_2}(1-\hat{p2})}{n_2}}$
+
+Since the confidence level is .8, we have $\alpha = .2$ and $\alpha/2=.1$
+```{r}
+alpha = .2
+zalpha2 = abs(qnorm(alpha/2))
+E = zalpha2 * sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+E
+```
+To calculate the confidence interval, we use the formula
+$(\hat{p_1}-\hat{p_2}) \pm E$
+```{r}
+(p1-p2) + E
+(p1-p2) - E
+```
+Round to three decimal places
+```{r}
+round((p1-p2) + E, 3)
+round((p1-p2) - E, 3)
+```
+
+**Second approach: find confidence interval directly without using margin of error E **
+
+To calculate the confidence interval, we use the formula
+$(\hat{p_1}-\hat{p_2}) \pm z_{\alpha/2}.\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}$
+```{r}
+alpha = .2
+zalpha2 = abs(qnorm(alpha/2))
+(p1-p2) + zalpha2 * sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+(p1-p2) - zalpha2 * sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+```
+Round to three decimal places
+```{r}
+round((p1-p2) + zalpha2 * sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2),3)
+round((p1-p2) - zalpha2 * sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2),3)
+```
+<hr/>
+**Notes: confidence interval is a range of data that contain unknown population and critical value is where we split the data to rejected and non-rejected region**
+<hr/>
+**Hope that helps!**

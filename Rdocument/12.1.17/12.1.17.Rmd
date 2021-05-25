@@ -1,0 +1,46 @@
+---
+title: "12.1.17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 12.1.17
+
+A poll found that 59% of a random sample of 1058 adults said that they believe in ghosts.
+
+<br/>
+
+**(a). Determine the margin of error for a​ 99% confidence interval. (Round to three decimal places as​ needed.)**
+
+First, we need to get the data from the question. $\hat{p} = .59$
+```{r}
+n = 1058
+p = .56
+```
+
+Since confidence level is .99, $\alpha = 1 - .99 = .01$. So $\alpha/2=.01/2$
+
+We can find $z_{\alpha/2}$ by using qnorm()
+```{r}
+alpha = .01
+zalpha2= abs(qnorm(alpha/2))
+```
+We can find the margin of error for a​ 99% confidence interval by using the formular $E=z_{\alpha/2}.\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+```{r}
+E = zalpha2 * sqrt(p*(1-p)/n)
+E
+```
+Round to three decimal places
+```{r}
+round(E, 3)
+```
+<hr />
+
+**(b). Without doing any​ calculations, indicate whether the margin of error is larger or smaller for a​ 90% confidence interval.**
+
+If we change the confidence level from 99% to 90%, our $z_{\alpha/2}$ will become smaller since alpha increases. From the formular, we can see that margin of error E will decrease.
+<hr/>
+**Hope that helps!**

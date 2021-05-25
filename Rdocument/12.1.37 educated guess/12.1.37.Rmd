@@ -1,0 +1,47 @@
+---
+title: "12.1.37"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 12.1.37
+
+For the specified margin of​ error, confidence​ level, and educated guess for the observed​ value, obtain a sample size that will ensure a margin of error of at most the one specified​ (provided, of​ course, that that observed value of the sample proportion is further from 0.5 than the educated​ guess).
+
+margin of error = 0.03​; confidence level = 90%;educated guess = 0.56
+<br/>
+<hr/>
+Since confidence level is .90, $\alpha = 1 - .9 = .1$. So $\alpha/2=.1/2$
+
+We can find $z_{\alpha/2}$ by using qnorm()
+```{r}
+alpha = .1
+zalpha2= abs(qnorm(alpha/2))
+p = .56
+E = .03
+```
+This question is similar to 12.1.31, in this case we have proportion $\hat{p} = .56$
+
+From question 12.1.25 we can find the margin of error for a​ 90% confidence interval by using the formular $E=z_{\alpha/2}.\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+
+This question is reverse, instead of finding E, the question gives us margin of error E and confidence level, ask us to find sample size n to meet the requirement. 
+
+As professor Covert introduces in chapter 12 worksheet, we can derive the formula $E=z_{\alpha/2}.\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ 
+
+to $n=\hat{p}.(1-\hat{p}).(\frac{z_{\alpha/2}}{E})^2$
+
+We find the sample size by using the formula $n=\hat{p}.(1-\hat{p}).(\frac{z_{\alpha/2}}{E})^2$
+
+```{r}
+n = p*(1-p) * (zalpha2 / E)^2
+n
+```
+Round up to nearest integer
+```{r}
+ceiling(n)
+```
+<hr/>
+**Hope that helps!**
