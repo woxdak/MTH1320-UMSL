@@ -1,0 +1,326 @@
+---
+title: "16.3.43"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 16.3.43
+
+The data shown to the right are from independent simple random samples from three populations. Use these data to complete parts​ (a) through​ (d).
+
+<br/>
+
+<hr/>
+Notation in one-way ANOVA:
+
+  * k = number of populations
+  
+  *  n = total number of observations
+  
+  * $\bar x$ = mean of all n observations
+  
+  * $n_j$ = size of sample from Population j
+  
+  * $\bar{x_j}$ = mean of sample from Population j
+  
+  * $s_j^2$ = variance of sample from Population j
+  
+  * $T_j$ = sum of sample data from Population j
+</hr>
+Defining formulas from sums of squares in one-way ANOVA:
+
+ * SST = $\sum (x_i - \bar x)^2$
+  
+ * SSTR = $\sum n_j(\bar{x_j} - \bar{x})^2$
+  
+ * SSE = $\sum (n_j-1)s_j^2$
+  
+<hr/>
+One-way ANOVA identity: SST = SSTR + SSE
+<hr/>
+Computing formulas from sums of squares in one-way ANOVA:
+
+ * SST = $\sum x_i^2 - (\sum x_i)^2/n$
+  
+ * SSTR = $\sum (T_j^2/n_j) - (\sum x_i)^2/n$
+  
+ * SSE = SST - SSTR
+  
+  **The way they define $\sum (T_j^2/n_j)$ is different from the one for x**
+<hr/>
+Mean squares in one-way ANOVA:
+
+ * MSTR = $\frac{SSTR}{k-1}$
+  
+ * MSE = $\frac{SSE}{n-k}$
+  
+ * SSE = SST - SSTR
+  
+<hr/>
+Test statistic for one-way ANOVAA (independent samples, normal populations, and equal population standard deviations):
+
+ * F = $\frac{MSTR}{MSE}$
+  
+with df = (k - 1, n - k)
+  
+<hr/>
+
+Confidence interval for $\mu_i - \mu_j$ in the Tukey multiple-comparison method (independent samples, normal populations, and equal population sstandard deviations):
+
+ * $(\bar{x_i} - \bar{x_j}) \pm \frac{q_{\alpha}}{\sqrt{2}}.s\sqrt{\frac{1}{n_i} + \frac{1}{n_j}}$
+
+where s = $\sqrt{MSE}$ and $q_{\alpha}$ is obtained for a q-curve with parameters k and n - k
+  
+<hr/>
+Test statistic for a Kruskal-Wallis test (independent samples, same-shape populations, all sample sizes 5 or greater):
+
+  * $K=\frac{SSTR}{SST/(n-1)}$ or
+  
+  * $K=\frac{12}{n(n+1)}\sum_{j=1}^{k} \frac{R_j^2}{n_j} - 3(n+1)$
+  
+
+where SSTR and SST are computed for the ranks of the data, and $R_j$ denotes the sum of the ranks for the sample data from Population j. K has approximately a chi-square distribution with df = k -1
+  
+<hr/>
+
+<hr/>
+**First approach: Using formulas from the book**
+<hr/>
+**(a) Compute​ SST, SSTR, and SSE using the following computing​ formulas, where $x_i$ is the ith​ observation, n is the total number of​ observations, $n_j$ is the sample size for population​ j, and $T_j$ is the sum of the sample data from population j.**
+
+First we need to get the data from the question. (We can import it from Excel)
+```{r}
+data <- read.csv("~/R/Chapter 2/16.3.43/16.3.43.csv")
+data
+```
+The type of data is tibble in R. To avoid confusion when working with other question, we should create a data frame.
+```{r}
+dframe = data.frame(data)
+dframe
+```
+
+**Names of variables**
+
+$\sum{x}: Sx$
+
+$\sum x^2: Sxx$
+$\sum (T_j^2/n_j)$: T
+
+n = total number of observations: n
+
+<hr/>
+
+
+To make it easy to find $\sum x$, we store all data into a variable x
+```{r}
+x <- c()
+for(item in dframe){
+  x <- c(x, item[!is.na(item)])
+}
+x
+n = length(x)
+n
+```
+**Find $\sum x_i$**
+```{r}
+sum(x)
+```
+**Find $\sum x_i^2$**
+```{r}
+sum(x*x)
+```
+**Find SST **
+
+To find SST, we use formula SST = $\sum x_i^2 - (\sum x_i)^2/n$
+```{r}
+SST = sum(x*x) - (sum(x))^2/n
+SST
+```
+
+**Find $\sum (T_j^2/n_j)$**
+```{r}
+T = 0
+for(item in dframe){
+  t =  item[!is.na(item)]
+  T = T + sum(t)^2/length(t)
+}
+T
+```
+**Find SSTR, we use formula SSTR = $\sum (T_j^2/n_j) - (\sum x_i)^2/n$ **
+
+```{r}
+SSTR = T - sum(x)^2/n
+SSTR
+```
+**Find SSE, we use formula SSE = SST - SSTR **
+
+```{r}
+SSE = SST - SSTR
+SSE
+```
+**(b). Compare your results in part​ (a) for SSTR and SSE with the following results from the defining formulas.**
+
+We find SSTR, SSE, SST by using defining formula 
+ 
+**Find SST using the formula SST = $\sum (x_i - \bar x)^2$**
+```{r}
+SST = sum(x*x) - (sum(x))^2/n
+SST
+```
+**Find SSTR using the formula SSTR = $\sum n_j(\bar{x_j} - \bar{x})^2$**
+```{r}
+SSTR = 0
+for(item in dframe){
+  t =  item[!is.na(item)]
+  SSTR = SSTR + length(t)*(mean(t) - mean(x))^2
+}
+SSTR
+```
+**Find SSE using the formula SSE = $\sum (n_j-1)s_j^2$**
+```{r}
+SSE = 0
+for(item in dframe){
+  t =  item[!is.na(item)]
+  SSE = SSE + (length(t)-1)*sd(t)^2
+}
+SSE
+```
+**We have the same answer by using two different formulas.**
+<hr/>
+**(c) Construct a​ one-way ANOVA table.**
+<hr/>
+**Find df treatment **
+```{r}
+k = length(dframe)
+k-1
+```
+**Find SS treatment **
+```{r}
+SSTR
+```
+**Find MS treatment **
+```{r}
+MSTR = SSTR/(k-1)
+MSTR
+```
+**Find Error df **
+```{r}
+n - k
+```
+**Find Error SS **
+```{r}
+SSE
+```
+**Find Error MS **
+```{r}
+MSE = SSE / (n - k)
+MSE
+```
+**Find F-statistic treatment **
+```{r}
+MSTR / MSE
+```
+**Find df total**
+```{r}
+n - 1
+```
+**Find SS total**
+```{r}
+SST
+```
+<hr/>
+**(d) Decide, at the 5​% significance​ level, whether the data provide sufficient evidence to conclude that the means of the populations from which the samples were drawn are not all the same.**
+
+First, let $\mu_1, \mu_2,$ and $\mu_3$be the population means of samples​ 1, 2, and​ 3, respectively. What are the correct hypotheses for a​ one-way ANOVA​ test?
+
+$H_0: \mu_1 = \mu_2 = \mu_3$
+
+$H_a:$ Not all the means are equal.
+
+**Now determine the critical value $F_{\alpha}$**
+
+Since $\alpha = .05$
+```{r}
+alpha = 0.05
+qf(1-alpha, k-1, n-k)
+```
+Round to decimal places
+```{r}
+round(qf(1-alpha, k-1, n-k), 2)
+```
+Since our test statistic = 3.53 < our critical value $F_{\alpha}=4.74$ and it is a right-tailed test, we do not have enough evidence to reject the hypothesis.
+<hr/>
+
+**Second approach: using anova() in R which Professor Covert introduces in the video lectures (recommended)**
+```{r}
+X <- c()
+len <- c()
+for(item in dframe){
+  X <- c(X, item[!is.na(item)])
+  len <- c(len, length(item[!is.na(item)]))
+}
+X
+len
+```
+We import name of our data.
+```{r}
+
+Y= rep(names(dframe), times = len)
+Y
+```
+
+```{r}
+dframe2 = data.frame(X,Y)
+dframe2
+```
+We run anova()
+```{r}
+fm1 = aov(X~Y, data=dframe2)
+fm1
+anova(fm1)
+```
+We can run str() to see structure of our data. We can extract any data from the frame. 
+```{r}
+str(anova(fm1))
+```
+Print F-statistic value to 2 decimal places
+```{r}
+print((anova(fm1)$`F value`), 3)
+```
+Find df of treatment and error
+```{r}
+anova(fm1)$`Df`
+```
+Find SS of treatment and error to 2 decimal places
+```{r}
+print((anova(fm1)$`Sum Sq`), 4)
+```
+Find MS of treatment and error to 2 decimal places
+```{r}
+print((anova(fm1)$`Mean Sq`), 3)
+```
+Find P-value to 2 decimal places
+```{r}
+print((anova(fm1)$`Pr(>F)`), 3)
+```
+
+**Two approaches give the same answer. The second approach is recommended since professor Covert introduces in the video lecture.**
+
+**Now determine the critical value $F_{\alpha}$**
+
+Since $\alpha = .05$, df(2,7)
+```{r}
+qf(1-.05, 2, 7)
+```
+Round to decimal places
+```{r}
+round(qf(1-.05, 2, 7), 2)
+```
+Since our test statistic = 3.52 < our critical value $F_{\alpha}=4.74$ and it is a right-tailed test, we do not have enough evidence to reject the hypothesis.
+<hr/>
+
+
+**Hope that helps!**

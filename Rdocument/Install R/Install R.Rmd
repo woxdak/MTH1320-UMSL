@@ -1,0 +1,39 @@
+---
+title: "Install R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Install R
+<hr/>
+**Install R**
+
+https://www.r-project.org/
+
+Choose the right version for your device.
+
+Run R Console 
+<hr/>
+**Install R studio**
+
+We select RStudio Desktop Free version
+
+https://www.rstudio.com/products/rstudio/download/#download
+
+We can follow the instruction from the link.
+
+First, we need to install R in our computers.
+
+Second, we download and install R studio for desktop.
+
+<hr/>
+**Online compiler**
+
+https://rdrr.io/snippets/
+
+We can install package in this online compiler so it is possible to do mid-term and final project.
+<hr/>
+Hope that helps!

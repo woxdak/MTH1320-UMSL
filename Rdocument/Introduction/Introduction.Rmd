@@ -1,0 +1,39 @@
+---
+title: "Introduction"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+<hr/>
+**This document is a personal project for guiding purpose for me working as a SI leader, and students in class MTH 1320**
+<hr/>
+**DISCLAIMER: SI leader does not teach the class. I am personally not at that academic level. It is a great opportunity to have chance to work with you, professor Covert, and professor Sager in this semester. If you have any academic question related to content in this class, you should ask professor Covert and professor Sager.**
+
+<hr/>
+**This document shows how to use R to get data in each chapter which is introduced in video lectures.**
+<hr/>
+
+**Short story**
+
+I have been working as a SI leader for a half of a year. I realize there are two main phases to study statistic.
+
+As you can see from the picture, these two phases are overlaped with each other. Since MTH 1320 is the first statistic class level which is required for many majors including non-STEM majors, there are many challenges for non-STEM students working on phase 2. 
+
+I have seen a student studying Nursing spends hours each week just only to get the right data for a question which I personally think it is uneffiecient and we should spend more time in phase 1. Statistic is much more than just getting the right number.
+
+This document helps us to reduce the time we spend on phase 2. 
+
+<hr/>
+**Open source**
+<hr/>
+**SI leader - University of Missouri St. Louis**
+<hr/>
+**The MIT License (MIT)**
+
+$Copyright (c) <2021>$ $<Warren>$
+
+<hr/>

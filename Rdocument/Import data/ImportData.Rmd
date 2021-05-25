@@ -1,0 +1,29 @@
+---
+title: "Import data from Excel to R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Import data from Excel to R
+<hr/>
+```{r}
+data <- read.csv("~/R/Chapter 2/Import data/Data1.csv")
+data
+```
+The first row is converted to the name of the data. If the data from Excel does not have a name, we will miss one value by importing directly from Excel.
+To avoid that, we should move the data from the first row to the last and give a name for the data.
+
+For example, in the second data sheet I move A to the last row and give x as the name of the data.
+```{r}
+data2 <- read.csv("~/R/Chapter 2/Import data/Data2.csv")
+data2
+```
+We can retrieve the data by using its name
+```{r}
+y = data2$x
+y
+```
+<hr/>

@@ -1,0 +1,28 @@
+---
+title: "16.1.7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 16.1.7
+
+An​ F-curve has df = (6, 4) Use an​ F-distribution table to find the​ F-value that has an area of 0.05 to its right.
+
+<hr/>
+
+Since $\alpha = .05$ the area to the left is .95
+
+To find $F_{0.05}$ we run
+```{r}
+alpha = 0.05
+qf(1-alpha, 6,4)
+```
+Round to two decimal places
+```{r}
+round(qf(1-alpha, 6,4) ,2)
+```
+<hr/>
+**Hope that helps!**
