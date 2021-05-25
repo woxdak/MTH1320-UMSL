@@ -1,0 +1,57 @@
+---
+title: "3.1.19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 3.1.19
+
+A concrete mix is designed to withstand 3000 pounds per square inch​ (psi) of pressure. The following data represent the strength of nine randomly selected casts​ (in psi). Compute the​ mean, median and mode strength of the concrete​ (in psi).
+<br/>
+<hr/>
+**Recommended find manually in Excel **
+<hr/>
+* even number of data set - type 5
+* odd number of data set - type 1
+<hr/>
+
+First, we need to import the data from Excel.
+(For simplicity, this imports manually by hand, we can get the same result by importing dataset from Excel)
+```{r}
+x <- c(3970, 4080, 3100, 3200, 2930, 3830, 4080, 4040, 3530)
+x
+```
+<hr />
+We can sort the data
+```{r}
+sort(x)
+```
+**Compute the mean strength of the concrete.**
+
+```{r}
+mean(x)
+```
+<hr />
+**Compute the median strength of the concrete.**
+
+```{r}
+median(x)
+```
+
+```{r}
+length(x)
+```
+Since we have odd amount of data
+```{r}
+summary(x, quantile.type = 1)
+```
+**Compute the mode strength of the concrete.**
+
+```{r}
+table(x)
+```
+<hr/>
+**Hope that helps!**

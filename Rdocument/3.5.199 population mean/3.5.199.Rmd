@@ -1,0 +1,39 @@
+---
+title: "3.5.199"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 3.5.199
+
+The​ heights, in​ inches, of the starting five players on a college basketball team are given below. 
+
+Regarding the five players as a​ population, solve the following problems.
+<br/>
+
+First, we need to import the data from Excel.
+(For simplicity, this imports mannual by hand, we can get the same result by importing dataset from Excel)
+```{r}
+x <- c(69, 72, 77 ,75, 85)
+x
+```
+<hr />
+**(a). Compute the population mean​ height, $\mu$**
+
+```{r}
+mean(x)
+```
+<hr />
+**(b). Compute the population standard deviation of the​ heights, $\sigma$**
+```{r}
+sd(x)*sqrt((length(x)-1)/length(x))
+```
+Round to one decimal place
+```{r}
+round(sd(x)*sqrt((length(x)-1)/length(x)), 1)
+```
+<hr/>
+**Hope that helps!**

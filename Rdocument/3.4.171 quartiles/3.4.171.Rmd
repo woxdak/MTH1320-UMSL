@@ -1,0 +1,67 @@
+---
+title: "3.4.171"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 3.3.171
+
+An article by a researcher reported on a​ long-term study of the effects of hurricanes on tropical streams in forests. The study shows that one particular hurricane had a significant impact on stream water chemistry. The following table shows a sample of 10 ammonia fluxes in the first year after the hurricane. Data are in kilograms per hectare per year. Complete parts​ (a) through​ (e) below.
+<br/>
+<hr/>
+**Recommanded find quatiles mannually in Excel since there is inconsistent approach in R **
+<hr/>
+* even number of data set - type 5
+* odd number of data set - type 1
+<hr/>
+
+First, we need to import the data from Excel.
+(For simplicity, this imports mannual by hand, we can get the same result by importing dataset from Excel)
+```{r}
+x <- c(88, 171, 64, 159, 89, 84, 180, 126, 123, 91)
+x
+```
+<hr />
+**(a). Obtain and interpret the quartiles**
+
+Since we have even number of 
+```{r}
+summary(x, quantile.type=5)
+quantile(x, type=5)
+```
+<hr />
+**(b).Determine and interpret the interquartile range​ (IQR).**
+We use the formula $IQR = Q_3-Q_1 $
+```{r}
+159-88
+```
+**(c). Find and interpret the​ five-number summary.**
+
+We can see the summary from part (a)
+
+To interpret five-number summary, we plot boxplot of data
+```{r}
+boxplot(quantile(x, type=5))
+```
+
+**(d). Identify potential​ outliers, if any. Choose the correct answer below​ and, if​ necessary, fill in the answer box to complete your choice**
+<hr/>
+* Lower limit = $Q_1 - 1.5.IQR$
+* Upper limit = $Q_3 + 1.5.IQR$
+<hr/>
+Lower limit
+```{r}
+88 - 1.5 * 71
+```
+Upper limit
+```{r}
+159 + 1.5 * 71
+```
+Sort our data
+```{r}
+sort(x)
+```
+**Hope that helps!**
