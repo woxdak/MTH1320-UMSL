@@ -1,0 +1,70 @@
+---
+title: "2.2.25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.2.25
+
+A list of college wrestling champions for the years 1981dash
+2005 is given in the table. Each college has been associated with a particular letter. Use this data to complete parts (a) through (d).
+<br/>
+
+**(a) Determine a frequency distribution.**
+
+First, we need to import the data from Excel.
+(For simplicity, this imports mannual by hand, we can get the same result by importing dataset from Excel)
+```{r}
+data <- c("C", "B", "E", "B", "A", "B", "C", "A", "B", "C", "C", "B", "E", "C", "D", "B", "C", "A", "C", "A", "C", "B", "E", "A", "A")
+data
+```
+<hr />
+We can get the frequency by using table() command
+```{r}
+table(data)
+```
+<hr />
+To display frenquency table in column format use cbind() command
+```{r}
+cbind(table(data))
+```
+<hr />
+<br/>
+**(b) Obtain a relative-frequency distribution.**
+
+To display relative frenquency table in column format use cbind() command
+```{r}
+cbind(table(data)/length(data))
+```
+<hr />
+To display the result appropriate to 5 decimal places use print() command
+
+In this case, we have nice results so it does not show the difference.
+```{r}
+print(table(data)/length(data), 5)
+```
+<hr />
+**(c) Draw a pie chart. Choose the correct chart below.**
+
+Store relative-frequency table in a variable x 
+```{r}
+x <- table(data)/length(data)
+```
+Display pie chart using pie() command
+```{r}
+pie(x)
+pie(x, labels = x)
+```
+
+<hr />
+**(d) Construct a bar chart. Choose the correct chart below.**
+
+Display bar chart using barplot() command
+```{r}
+barplot(x)
+```
+<hr/>
+**Hope that helps!**
